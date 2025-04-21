@@ -1,10 +1,14 @@
-﻿namespace TaskFlow.Web
+﻿using Microsoft.EntityFrameworkCore;
+using TaskFlow.Web.Data;
+
+namespace TaskFlow.Web
 {
     public static class DIModule
     {
-        public static void ServiceRegistration(this IServiceCollection services)
+        public static void ServiceRegistration(this IServiceCollection services, string connectionString)
         {
-            //services.AddScoped<IApplicationBuilder, ApplicationBuilder>();
+            services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseNpgsql(connectionString));
         }
     }
 }
