@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Web;
 using TaskFlow.Application.Services;
+using TaskFlow.Web.Models;
 
 namespace TaskFlow.Web.Controllers
 {
@@ -24,6 +26,30 @@ namespace TaskFlow.Web.Controllers
             var status = _statusService.GetAllStatus();
             return View();
         }
+
+
+        public JsonResult GetBarcodeJsonData([FromBody] StatusListModel model)
+        {
+            var result = _statusService.GetStatus(model.PageIndex, model.PageSize, model.Search,
+                model.FormatSortExpression("StatusName", "Id"));
+
+            var barcodeJsonData = new
+            {
+                recordsTotal = result.total,
+                recordsFiltered = result.totalDisplay,
+                data = (from record in result.data
+                        select new string[]
+                        {
+                    HttpUtility.HtmlEncode(record.StatusName),
+                    HttpUtility.HtmlEncode(record.StatusDescription ?? "N/A"),
+                    record.Id.ToString()
+                        }
+                    ).ToArray()
+            };
+
+            return Json(barcodeJsonData);
+        }
+
 
 
     }
