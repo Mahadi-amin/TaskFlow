@@ -102,9 +102,9 @@
             $('#status').on('click', '.show-bs-modal', function () {
                 let id = $(this).data("id");
                 let modal = $("#modal-default");
-                modal.find('.modal-body p').text('Are you sure you want to delete this barcode?'); // Updated message
+                modal.find('.modal-body p').text('Are you sure you want to delete this barcode?'); 
                 $("#deleteId").val(id);
-                $("#deleteForm").attr("action", "/admin/barcode/delete"); // Updated action URL
+                $("#deleteForm").attr("action", "/admin/barcode/delete"); 
                 modal.modal('show');
             });
 
