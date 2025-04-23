@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskFlow.Application;
 using TaskFlow.Application.Services;
+using TaskFlow.Application.ServicesInterface;
 using TaskFlow.Domain;
 using TaskFlow.Domain.RepositoryContracts;
 using TaskFlow.Infrastructure.Repositories;
@@ -20,6 +21,13 @@ namespace TaskFlow.Web
 
             services.AddScoped<IStatusService, StatusService>();
             services.AddScoped<IStatusRepository, StatusRepository>();
+
+            services.AddScoped<ITaskItemService, TaskItemService>();
+            services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+
+            services.AddScoped<ITaskDependencyRepository, TaskDependencyRepository>();
+
+
         }
     }
 }

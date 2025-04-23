@@ -18,7 +18,8 @@ namespace TaskFlow.Web.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<Status> Statuses { get; set; } 
-        public IList<TaskItem> TaskItems { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<TaskItem> TaskItems { get; set; }
+        public DbSet<TaskDependency> TaskDependencies { get; set; }
     }
 }

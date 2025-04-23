@@ -1,0 +1,158 @@
+﻿@using TaskFlow.Domain.Entities
+@model TaskListModel
+@{
+	ViewData["Title"] = "Index";
+}
+
+<section class="content">
+	<div class="container-fluid">
+		@* <partial name="../Shared/_DeleteModal.cshtml" /> *@
+
+		<div class="row">
+			<div class="col-12">
+				<!-- /.card -->
+				<div class="card-header">
+					<div class="row">
+						<div class="col-sm-12 col-md-10">
+							<h3 class="card-title">Task List</h3>
+						</div>
+						<div class="col-sm-12 col-md-2 d-flex justify-content-end">
+							<a asp-controller="TaskItem" asp-action="Create" class="btn btn-sm btn-primary">
+								<i class="bi bi-plus"></i>Add
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Status</label>
+								<select asp-for="SearchParams.StatusId" asp-items="Model.StatusList" class="form-control">
+									<option selected value="">Select Status</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Priority</label>
+								<select asp-for="SearchParams.Priority"
+										asp-items="Html.GetEnumSelectList<Priority>()" class="form-control">
+									<option selected value="0">Select Priority</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Create Date From</label>
+								<input type="text" asp-for="SearchParams.FromDate" class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label>Create Date To</label>
+								<input type="text" asp-for="SearchParams.ToDate" class="form-control" />
+							</div>
+						</div>
+					</div>
+					<button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+				</div>
+				<table id="task-table" class="table table-sm table-hover">
+					<thead class="table-header">
+						<tr>
+							<th>Due Date</th>
+							<th>Task</th>
+							<th>Description</th>
+							<th>Priority</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</section>
+
+@section styles {
+	<link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css"   />
+}
+
+@section Scripts {
+	<script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
+	<script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+	<script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+	<script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	@*<partial name="../Shared/_ValidationScriptsPartial.cshtml" />*@
+	<script>
+
+
+		$('#task-table').on('click', '.show-bs-modal', function (event) {
+			let id = $(this).data("id");
+			let modal = $('#delete-modal');
+			$("#deleteId").val(id);
+			$("#delete-form").attr("action", "/TaskItem/Delete");
+		});
+
+		$("#searchButton").click(function () {
+			$('#task-table').DataTable().ajax.reload(null, false);
+		});
+
+		$('#SearchParams_FromDate, #SearchParams_ToDate').datepicker({
+			format: 'yyyy-mm-dd',
+			autoclose: true
+		});
+
+
+		$("#task-table").DataTable({
+					processing: true,
+					serverSide: true,
+					responsive: true,
+					filter: false,
+					autoWidth: true,
+					ajax: {
+						url: "/TaskItem/GetTaskItemJsonData",
+						type: "POST",
+						contentType: "application/json",
+						dataType: "json",
+						data: function (d) {
+							d.SearchParams = {
+								StatusId: $('#SearchParams_StatusId').val(),
+								Priority: $('#SearchParams_Priority').val()  == "0" ? null :
+											$('#SearchParams_Priority').val(),
+								FromDate: $('#SearchParams_FromDate').val()  == "" ? null :
+											$('#SearchParams_FromDate').val(),
+								ToDate: $('#SearchParams_ToDate').val()  == "" ? null :
+											$('#SearchParams_ToDate').val(),
+							};
+							return JSON.stringify(d);
+						}
+					},
+					columnDefs: [
+							{
+								orderable: false,
+								targets: 5,
+								render: function (data, type, row) {
+									return `
+								<button type="submit" class="btn btn-sm"
+										onclick="window.location.href='/Status/Edit/${data}'"
+										value='${data}' data-id='${data}' title="Edit">
+									<i class="text-primary bi bi-pencil-square"></i>
+								</button>
+
+								<button class="btn btn-sm show-bs-modal"
+										data-toggle="modal" data-target="#delete-modal"
+										data-id='${data}' value='${data}' title="Delete">
+									<i class="text-danger bi bi-trash"></i>
+								</button>`;
+								}
+							}
+						]
+				});
+	</script>
+}
+
+

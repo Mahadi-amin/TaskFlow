@@ -1,7 +1,7 @@
 ﻿using TaskFlow.Domain;
 using TaskFlow.Domain.Entities;
 
-namespace TaskFlow.Application.Services
+namespace TaskFlow.Application.ServicesInterface
 {
     public interface IStatusService
     {

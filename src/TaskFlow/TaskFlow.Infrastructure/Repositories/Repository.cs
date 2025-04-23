@@ -270,6 +270,46 @@ namespace TaskFlow.Infrastructure.Repositories
             }
         }
 
+        public virtual async Task<(IList<TEntity> data, int totalDisplay)> GetDynamicDataAsync(
+            IQueryable<TEntity> baseQuery,
+            string orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+            int pageIndex = 1,
+            int pageSize = 10,
+            bool isTrackingOff = false)
+        {
+            IQueryable<TEntity> query = baseQuery;
+
+            int totalDisplay = await query.CountAsync();
+
+            if (include != null)
+                query = include(query);
+
+            IList<TEntity> data;
+
+            if (orderBy != null)
+            {
+                var result = query.OrderBy(orderBy).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+                if (isTrackingOff)
+                    data = await result.AsNoTracking().ToListAsync();
+                else
+                    data = await result.ToListAsync();
+            }
+            else
+            {
+                var result = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+                if (isTrackingOff)
+                    data = await result.AsNoTracking().ToListAsync();
+                else
+                    data = await result.ToListAsync();
+            }
+
+            return (data, totalDisplay);
+        }
+
+
         public virtual void Add(TEntity entity)
         {
             _dbSet.Add(entity);

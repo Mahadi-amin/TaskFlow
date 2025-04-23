@@ -12,7 +12,7 @@ namespace TaskFlow.Infrastructure.Data.EntityConfig
             builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
             builder.Property(x => x.DueDate).IsRequired();
             builder.Property(t => t.Priority).IsRequired();
-            builder.Property(t => t.Description).IsRequired().HasMaxLength(500);
+            builder.Property(t => t.Description).HasMaxLength(500);
 
             builder.HasOne(x => x.Status)
                    .WithMany(y => y.TaskItems)
