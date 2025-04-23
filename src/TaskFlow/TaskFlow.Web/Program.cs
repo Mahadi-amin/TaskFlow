@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using TaskFlow.Infrastructure.Data.SeedingMethod;
 using TaskFlow.Web;
 using TaskFlow.Web.Data;
 
@@ -73,6 +74,8 @@ try
     {
         await context.Database.MigrateAsync();
         Log.Information("Migrations upto dated ...");
+        await SeedRolesAndUsersFromJson.SeedAsync(services);
+        await SeedTaskContextEntityFromJson.SeedAsync(context);
     }
     catch (Exception ex)
     {

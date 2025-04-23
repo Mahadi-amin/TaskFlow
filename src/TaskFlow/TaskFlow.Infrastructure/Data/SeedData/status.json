@@ -1,0 +1,17 @@
+[
+  {
+    "Id": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
+    "StatusName": "Completed",
+    "StatusDescription": "This task has been completed."
+  },
+  {
+    "Id": "6d3c1553-3d15-4991-a5c5-7235a60fddfb",
+    "StatusName": "Pending",
+    "StatusDescription": "This task is pending and has not been started."
+  },
+  {
+    "Id": "d0eb5691-bb28-452b-902b-91452219dcdd",
+    "StatusName": "In-Progress",
+    "StatusDescription": "This task is currently in progress."
+  }
+]
