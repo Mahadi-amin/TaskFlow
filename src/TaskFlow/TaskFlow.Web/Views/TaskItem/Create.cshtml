@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label asp-for="PrerequisiteIds">Prerequisites</label>
                         <select asp-for="PrerequisiteIds" class="form-control" asp-items="Model.AllTasks" multiple="multiple">
-                            <option selected value="">Select Prerequisite Tasks</option>
+                            @* <option selected value="">Select Prerequisite Tasks</option> *@
                         </select>
                     </div>
                     <div class="form-group">
@@ -119,7 +119,7 @@
         });
 
         $("#dueDate").datepicker({
-            format: 'dd-mm-yyyy',
+            format: 'yyyy-mm-dd',
             autoclose: true,
             todayHighlight: true
         }).datepicker("setDate", new Date());

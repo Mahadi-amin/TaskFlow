@@ -80,7 +80,7 @@ namespace TaskFlow.Web.Controllers
 
                 await _taskItemService.CreateNewTaskAsync(taskItem);
 
-                if (model.DueDate != DateTime.MinValue && model.PrerequisiteIds != null)
+                if (model.DueDate != DateTime.MinValue && model.PrerequisiteIds?.Count > 0)
                 {
                     await _taskItemService
                         .CreateNewDependencyAsync(taskItem.Id, model.PrerequisiteIds);

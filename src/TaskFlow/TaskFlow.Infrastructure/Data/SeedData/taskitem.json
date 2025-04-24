@@ -4,23 +4,23 @@
     "Title": "Finish Report",
     "Description": "Complete the quarterly financial report.",
     "DueDate": "2025-05-01T00:00:00",
-    "StatusId": "6d3c1553-3d15-4991-a5c5-7235a60fddfb", 
-    "Priority": 1 
+    "StatusId": "6d3c1553-3d15-4991-a5c5-7235a60fddfb",
+    "Priority": 1
   },
   {
     "Id": "3a24b8f3-2c12-47d3-a8f2-e0d7cb77c9ff",
     "Title": "Implement Feature",
     "Description": "Work on the new feature for the dashboard.",
     "DueDate": "2025-04-15T00:00:00",
-    "StatusId": "d0eb5691-bb28-452b-902b-91452219dcdd", 
-    "Priority": 2 
+    "StatusId": "d0eb5691-bb28-452b-902b-91452219dcdd",
+    "Priority": 2
   },
   {
     "Id": "5687a1d0-7353-4e2d-85ab-4a6fda05e5a4",
     "Title": "Fix Bugs",
     "Description": "Resolve issues reported by QA.",
     "DueDate": "2025-04-20T00:00:00",
-    "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56", 
-    "Priority": 3 
+    "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
+    "Priority": 3
   }
 ]
