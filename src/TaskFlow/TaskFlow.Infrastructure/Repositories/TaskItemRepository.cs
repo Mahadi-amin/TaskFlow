@@ -62,23 +62,10 @@ namespace TaskFlow.Infrastructure.Repositories
 
             return upcomingTasksCount;
         }
-
-        public async Task<int> GetPendingTaskAsync()
+        public Task<int> GetTaskCountByStatusAsync(string statusName)
         {
-            var taskCount = await _dbSet.CountAsync(t => t.Status.StatusName == "Pending");
-            return taskCount;
+            return _dbSet.CountAsync(t => t.Status.StatusName == statusName);
         }
 
-        public Task<int> GetInProgressTaskAsync()
-        {
-            var taskCount = _dbSet.CountAsync(t => t.Status.StatusName == "In-Progress");
-            return taskCount;
-        }
-
-        public Task<int> GetCompletedTaskAsync()
-        {
-            var taskCount = _dbSet.CountAsync(t => t.Status.StatusName == "Completed");
-            return taskCount;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TaskFlow.Application.ServicesInterface;
+﻿using TaskFlow.Application.Dtos;
+using TaskFlow.Application.ServicesInterface;
 using TaskFlow.Domain.Dtos;
 using TaskFlow.Domain.Entities;
 
@@ -109,19 +110,9 @@ namespace TaskFlow.Application.Services
             return await _taskUnitOfWork.TaskItemRepository.NearDueDateTaskAsync();
         }
 
-        public async Task<int> GetAllPendingTaskAsync()
+        public async Task<int> GetAllTaskCountByStatusAsync(string taskStatusNames)
         {
-            return await _taskUnitOfWork.TaskItemRepository.GetPendingTaskAsync();
-        }
-
-        public async Task<int> GetAllInProgressTaskAsync()
-        {
-            return await _taskUnitOfWork.TaskItemRepository.GetInProgressTaskAsync();
-        }
-
-        public async Task<int> GetAllCompletedTaskAsync()
-        {
-            return await _taskUnitOfWork.TaskItemRepository.GetCompletedTaskAsync();
+            return await _taskUnitOfWork.TaskItemRepository.GetTaskCountByStatusAsync(taskStatusNames);
         }
 
     }

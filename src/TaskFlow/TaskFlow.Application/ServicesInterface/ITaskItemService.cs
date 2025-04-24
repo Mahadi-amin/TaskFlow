@@ -15,9 +15,7 @@ namespace TaskFlow.Application.ServicesInterface
         Task UpdateDependencyAsync(Guid Id, List<Guid> prerequisiteIds);
         Task DeleteTaskAsync(Guid id);
         Task<int> GetUpcomingDueTaskCountAsync();
-        Task<int> GetAllPendingTaskAsync();
-        Task<int> GetAllInProgressTaskAsync();
-        Task<int> GetAllCompletedTaskAsync();
+        Task<int> GetAllTaskCountByStatusAsync(string taskStatusNames);
 
     }
 }

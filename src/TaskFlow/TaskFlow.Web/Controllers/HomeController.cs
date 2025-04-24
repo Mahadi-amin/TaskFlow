@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TaskFlow.Application.Dtos;
 using TaskFlow.Application.ServicesInterface;
 using TaskFlow.Web.Models;
 
@@ -21,9 +22,10 @@ namespace TaskFlow.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var upcomingTasksCount = await _taskItemService.GetUpcomingDueTaskCountAsync();
-            var pendingTaskCount = await _taskItemService.GetAllPendingTaskAsync();
-            var inProgressTaskCount = await _taskItemService.GetAllInProgressTaskAsync();
-            var completedTaskCount = await _taskItemService.GetAllCompletedTaskAsync();
+            var pendingTaskCount = await _taskItemService.GetAllTaskCountByStatusAsync(TaskStatusNames.Pending);
+            var inProgressTaskCount = await _taskItemService.GetAllTaskCountByStatusAsync(TaskStatusNames.InProgress);
+            var completedTaskCount = await _taskItemService.GetAllTaskCountByStatusAsync(TaskStatusNames.Completed);
+
 
             ViewBag.UpcomingTasksCount = upcomingTasksCount;
             ViewBag.PendingTaskCount = pendingTaskCount;

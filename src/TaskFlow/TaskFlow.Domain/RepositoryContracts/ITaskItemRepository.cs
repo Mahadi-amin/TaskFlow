@@ -8,8 +8,6 @@ namespace TaskFlow.Domain.RepositoryContracts
         Task<(IList<TaskItem> data, int total, int totalDisplay)> GetAllTaskItemsAsync(int pageIndex, int pageSize, TaskItemDto search, string? order);
         Task<TaskItem> GetTaskWithPrerequisites(Guid id);
         Task<int> NearDueDateTaskAsync();
-        Task<int> GetPendingTaskAsync();
-        Task<int> GetInProgressTaskAsync();
-        Task<int> GetCompletedTaskAsync();
+        Task<int> GetTaskCountByStatusAsync(string statusName);
     }
 }
