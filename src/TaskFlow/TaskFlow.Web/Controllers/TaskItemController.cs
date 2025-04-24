@@ -159,5 +159,26 @@ namespace TaskFlow.Web.Controllers
             await _taskItemService.DeleteTaskAsync(id);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> GetAll(Guid Id)
+        {
+            var task = await _taskItemService.GetTaskAsync(Id);
+
+            var model = new TaskEditModel()
+            {
+                Title = task.Title,
+                Description = task.Description,
+                DueDate = task.DueDate,
+                Priority = task.Priority,
+                StatusId = task.StatusId,
+
+            };
+            var tasks = await _taskItemService.GetTaskListAsync();
+            var statuses = await _taskItemService.GetStatusListAsync();
+
+            model.SetAllStatuses(statuses);
+            model.SetAllTasks(tasks);
+            return View(model);
+        }
     }
 }

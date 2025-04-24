@@ -1,4 +1,4 @@
-﻿namespace TaskFlow.Application.Dtos
+﻿namespace TaskFlow.Web.Dtos
 {
     public static class TaskStatusNames
     {

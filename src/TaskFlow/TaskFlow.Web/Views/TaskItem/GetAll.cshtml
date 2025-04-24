@@ -1,0 +1,37 @@
+﻿@model TaskEditModel
+
+@{
+    ViewData["Title"] = "Task Details";
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg w-25">
+        <div class="card-header bg-primary text-white py-2">
+            <h5 class="mb-0 text-truncate">@Model.Title</h5>
+        </div>
+        <div class="card-body py-2 small">
+            <p>
+                <strong>Status:</strong>
+                <span class="badge bg-info">
+                    @Model.StatusList?.FirstOrDefault(s => s.Value == Model.StatusId?.ToString())?.Text
+                </span>
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+                <span class="badge @(Model.Priority switch {
+                    Priority.Low => "bg-success",
+                    Priority.Medium => "bg-warning text-dark",
+                    Priority.High => "bg-danger",
+                    _ => "bg-secondary"
+                })">@Model.Priority</span>
+            </p>
+
+            <p><strong>Due:</strong> @Model.DueDate.ToString("dd MMM yyyy")</p>
+        </div>
+        <div class="card-footer text-end py-2">
+            <a href="@Url.Action("Edit", "Task", new { id = Model.Id })" class="btn btn-warning btn-sm">Edit</a>
+            <a href="@Url.Action("Index", "Task")" class="btn btn-secondary btn-sm">Back</a>
+        </div>
+    </div>
+</div>
