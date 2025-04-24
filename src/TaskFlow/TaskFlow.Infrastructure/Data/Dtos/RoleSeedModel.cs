@@ -1,4 +1,4 @@
-﻿namespace TaskFlow.Infrastructure.Dtos
+﻿namespace TaskFlow.Infrastructure.Data.Dtos
 {
     public class RoleSeedModel
     {

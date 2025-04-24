@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
+using TaskFlow.Infrastructure.Data.Dtos;
 using TaskFlow.Infrastructure.Dtos;
 
 namespace TaskFlow.Infrastructure.Data.SeedingMethod
@@ -58,9 +59,6 @@ namespace TaskFlow.Infrastructure.Data.SeedingMethod
                     else
                     {
                         var errors = string.Join("; ", result.Errors.Select(e => e.Description));
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"❌ Failed to create user '{userSeed.Email}': {errors}");
-                        Console.ResetColor();
                     }
                 }
             }

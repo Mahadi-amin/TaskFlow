@@ -1,58 +1,48 @@
 ﻿@model RegistrationModel
-
 @{
     ViewData["Title"] = "Register";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm p-4" style="min-width: 400px;">
+        <h4 class="card-title text-center mb-4">@ViewData["Title"]</h4>
 
-<form asp-action="Register" method="post" class="form-horizontal">
-    @if (ViewData.ModelState[""]?.Errors.Count > 0)
-    {
-        <div class="alert alert-danger">
-            <strong>Something went wrong! Please check the details and try again.</strong>
-        </div>
-    }
+        @if (ViewData.ModelState[""]?.Errors.Count > 0)
+        {
+            <div class="alert alert-danger">
+                <strong>Something went wrong! Please check the details and try again.</strong>
+            </div>
+        }
 
-    <div class="form-group">
-        <label for="Email" class="col-md-2 control-label">Email</label>
-        <div class="col-md-6">
-            <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
+        <form asp-action="Register" method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label for="Password" class="col-md-2 control-label">Password</label>
-        <div class="col-md-6">
-            <input type="password" asp-for="Password" class="form-control" placeholder="Enter your password" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <label for="ConfirmPassword" class="col-md-2 control-label">Confirm Password</label>
-        <div class="col-md-6">
-            <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Confirm your password" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-6">
-            <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-    </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-6">
-            <p>Already have an account? <a href="@Url.Action("Login", "Account")">Login here</a>.</p>
+        <div class="text-center mt-3">
+            Already have an account?
+            <a href="@Url.Action("Login", "Account")">Login here</a>
         </div>
     </div>
-</form>
+</div>
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
-
-

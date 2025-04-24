@@ -3,28 +3,32 @@
     ViewData["Title"] = "Login";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm p-4" style="min-width: 350px;">
+        <h4 class="card-title text-center mb-4">@ViewData["Title"]</h4>
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
-<form asp-action="Login" method="post">
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div class="form-group form-check">
-        <input asp-for="RememberMe" type="checkbox" class="form-check-input" />
-        <label class="form-check-label" for="RememberMe">Remember me</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
 
-<div>
-    <a href="@Url.Action("Register", "Account")">Register a new account</a>
+            <div class="form-group form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label class="form-check-label" asp-for="RememberMe">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="@Url.Action("Register", "Account")">Register a new account</a>
+        </div>
+    </div>
 </div>
-
-
