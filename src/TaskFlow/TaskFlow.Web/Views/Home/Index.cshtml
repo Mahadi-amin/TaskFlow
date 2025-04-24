@@ -26,8 +26,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                       @*  <h3>@ViewBag.UpcomingTasksCount</h3> *@
-                        <h3>4</h3>
+                        <h3>@ViewBag.pendingTaskCount</h3>
                         <p>Pending</p>
                     </div>
                     <div class="icon">
@@ -39,13 +38,10 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-warning">
                     <div class="inner">
-                        @* <h3>@ViewBag.TotalSales</h3> *@
-
-                        <h3>4</h3>
-
-                        <p>Sales</p>
+                        <h3>@ViewBag.InProgressTaskCount</h3>
+                        <p>In-Progress</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -56,12 +52,10 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-success">
                     <div class="inner">
-                        @* <h3>@ViewBag.TotalProducts</h3> *@
-                        <h3>8</h3> 
-
-                        <p>Expiry Alert</p>
+                        <h3>@ViewBag.CompletedTaskCount</h3>
+                        <p>Completed</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>

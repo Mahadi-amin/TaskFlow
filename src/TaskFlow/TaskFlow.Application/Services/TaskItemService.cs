@@ -108,6 +108,22 @@ namespace TaskFlow.Application.Services
         {
             return await _taskUnitOfWork.TaskItemRepository.NearDueDateTaskAsync();
         }
+
+        public async Task<int> GetAllPendingTaskAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetPendingTaskAsync();
+        }
+
+        public async Task<int> GetAllInProgressTaskAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetInProgressTaskAsync();
+        }
+
+        public async Task<int> GetAllCompletedTaskAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetCompletedTaskAsync();
+        }
+
     }
 
 }
