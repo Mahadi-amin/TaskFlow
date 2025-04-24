@@ -46,6 +46,11 @@ namespace TaskFlow.Application.Services
             }
             await _taskUnitOfWork.SaveAsync();
         }
+
+        public Task<int> GetUpcomingDueTaskCountAsync()
+        {
+            return _taskUnitOfWork.TaskItemRepository.NearDueDateTaskAsync();
+        }
     }
 
 }

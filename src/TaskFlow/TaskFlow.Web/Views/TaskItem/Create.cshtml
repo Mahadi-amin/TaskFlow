@@ -1,5 +1,4 @@
-﻿@using TaskFlow.Domain.Entities
-@model TaskCreateModel
+﻿@model TaskCreateModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -44,7 +43,6 @@
                     <div class="form-group">
                         <label asp-for="PrerequisiteIds">Prerequisites</label>
                         <select asp-for="PrerequisiteIds" class="form-control" asp-items="Model.AllTasks" multiple="multiple">
-                            @* <option selected value="">Select Prerequisite Tasks</option> *@
                         </select>
                     </div>
                     <div class="form-group">

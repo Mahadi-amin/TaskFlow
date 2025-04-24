@@ -28,12 +28,12 @@ namespace TaskFlow.Web.Controllers
         }
 
 
-        public JsonResult GetBarcodeJsonData([FromBody] StatusListModel model)
+        public JsonResult GetstatusJsonData([FromBody] StatusListModel model)
         {
             var result = _statusService.GetStatus(model.PageIndex, model.PageSize, model.Search,
                 model.FormatSortExpression("StatusName", "Id"));
 
-            var barcodeJsonData = new
+            var statusJsonData = new
             {
                 recordsTotal = result.total,
                 recordsFiltered = result.totalDisplay,
@@ -47,7 +47,7 @@ namespace TaskFlow.Web.Controllers
                     ).ToArray()
             };
 
-            return Json(barcodeJsonData);
+            return Json(statusJsonData);
         }
 
 

@@ -1,12 +1,11 @@
-﻿@using TaskFlow.Domain.Entities
-@model TaskListModel
+﻿@model TaskListModel
 @{
 	ViewData["Title"] = "Index";
 }
 
 <section class="content">
 	<div class="container-fluid">
-		@* <partial name="../Shared/_DeleteModal.cshtml" /> *@
+@* 		<partial name="../Shared/_DeleteModal.cshtml" /> *@
 
 		<div class="row">
 			<div class="col-12">
@@ -78,17 +77,17 @@
 @section styles {
 	<link rel="stylesheet" href="~/AdminLte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" href="~/AdminLte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css"   />
 }
 
 @section Scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
 	<script src="~/AdminLte/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script src="~/AdminLte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="~/AdminLte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 	<script src="~/AdminLte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+	<partial name="../Shared/_ValidationScriptsPartial.cshtml" />
 
-	@*<partial name="../Shared/_ValidationScriptsPartial.cshtml" />*@
 	<script>
 
 
@@ -140,7 +139,7 @@
 								render: function (data, type, row) {
 									return `
 								<button type="submit" class="btn btn-sm"
-										onclick="window.location.href='/Status/Edit/${data}'"
+										onclick="window.location.href='/TaskItem/Edit/${data}'"
 										value='${data}' data-id='${data}' title="Edit">
 									<i class="text-primary bi bi-pencil-square"></i>
 								</button>
@@ -156,5 +155,4 @@
 				});
 	</script>
 }
-
 

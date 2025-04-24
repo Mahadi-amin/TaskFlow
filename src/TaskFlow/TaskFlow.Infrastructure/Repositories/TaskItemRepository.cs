@@ -43,6 +43,17 @@ namespace TaskFlow.Infrastructure.Repositories
             return (data, total, totalDisplay);
         }
 
+        public async Task<int> NearDueDateTaskAsync()
+        {
+            var nowUtc = DateTime.UtcNow;
+            var sevenDaysLaterUtc = nowUtc.AddDays(7);
+
+            var upcomingTasksCount = await _dbSet
+                .Where(t => t.DueDate > nowUtc && t.DueDate <= sevenDaysLaterUtc)
+                .CountAsync();
+
+            return upcomingTasksCount;
+        }
     }
 
 }
