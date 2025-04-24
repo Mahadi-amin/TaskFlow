@@ -1,0 +1,129 @@
+﻿@model TaskEditModel
+@{
+	ViewData["Title"] = "Edit Task";
+}
+
+<div class="container-fluid">
+	<div class="d-flex justify-content-center">
+		<div class="col-md-12">
+			<div class="card-header">
+				<h3 class="card-title">@ViewData["Title"]</h3>
+			</div>
+			<form asp-antiforgery="true" asp-controller="TaskItem" asp-action="Edit" method="post" id="edit-task">
+				<input type="hidden" asp-for="Id" />
+				<div class="card-body">
+					<div class="form-group">
+						<label asp-for="Title"></label>
+						<input asp-for="Title" type="text" class="form-control"
+							   id="title" name="title" placeholder="Title">
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<div class="form-group">
+								<label asp-for="StatusId">Status</label>
+								<select asp-for="StatusId" asp-items="Model.StatusList"
+										class="form-control" id="statusId" name="statusId">
+									<option selected value="">Select a Status</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<label asp-for="Priority"></label>
+								<select asp-for="Priority" asp-items="Html.GetEnumSelectList<Priority>()"
+										class="form-control" id="priority" name="priority">
+									<option selected value="">Select Priority</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label asp-for="DueDate">Due Date</label>
+						<input class="form-control form-control-sm" type="text" asp-for="DueDate" id="dueDate" name="dueDate" value="@Model.DueDate.ToString("yyyy-MM-dd")" required>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="PrerequisiteIds">Prerequisites</label>
+						<select asp-for="PrerequisiteIds" class="form-control" asp-items="Model.AllTasks" multiple="multiple">
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Description"></label>
+						<textarea asp-for="Description" type="text" class="form-control" placeholder="Description"></textarea>
+					</div>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer">
+					<button type="submit" class="btn btn-sm btn-primary px-3 mr-4">Submit</button>
+					<a type="button" class="btn btn-sm btn-danger px-3"
+					   asp-controller="TaskItem" asp-action="Index">
+						Cancel
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+@section Styles {
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker3.standalone.min.css" />
+}
+
+
+@section Scripts {
+	<partial name="../Shared/_ValidationScriptsPartial.cshtml" />
+
+	<script>
+		$('#edit-task').validate({
+					rules: {
+						title: {
+							required: true
+						},
+						dueDate: {
+							required: true
+						},
+						statusId: {
+							required: true
+						},
+						priority: {
+							required: true
+						},
+
+					},
+					messages: {
+						title: {
+							required: "Title is required"
+						},
+						dueDate: {
+							required: "Please Select a Due Date"
+						},
+						statusId: {
+							required: "Please Select a Status"
+						},
+						priority: {
+							required: "Please Select a Priority"
+						},
+
+					},
+					errorElement: 'span',
+					errorPlacement: function (error, element) {
+						error.addClass('invalid-feedback');
+						element.closest('.form-group').append(error);
+					},
+					highlight: function (element, errorClass, validClass) {
+						$(element).addClass('is-invalid');
+					},
+					unhighlight: function (element, errorClass, validClass) {
+						$(element).removeClass('is-invalid');
+					}
+				});
+
+				$("#dueDate").datepicker({
+					format: 'yyyy-mm-dd',
+					autoclose: true,
+					todayHighlight: true
+				});
+	</script>
+}
+

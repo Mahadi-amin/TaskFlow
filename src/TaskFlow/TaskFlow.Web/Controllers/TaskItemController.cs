@@ -80,7 +80,7 @@ namespace TaskFlow.Web.Controllers
 
                 await _taskItemService.CreateNewTaskAsync(taskItem);
 
-                if (model.DueDate != DateTime.MinValue && model.PrerequisiteIds?.Count > 0)
+                if (model.DueDate != DateTime.MinValue && model.PrerequisiteIds != null)
                 {
                     await _taskItemService
                         .CreateNewDependencyAsync(taskItem.Id, model.PrerequisiteIds);
@@ -98,5 +98,66 @@ namespace TaskFlow.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Edit(Guid Id)
+        {
+            var task = await _taskItemService.GetTaskAsync(Id);
+
+            var model = new TaskEditModel()
+            {
+                Title = task.Title,
+                Description = task.Description,
+                DueDate = task.DueDate,
+                Priority = task.Priority,
+                StatusId = task.StatusId,
+
+            };
+            var tasks = await _taskItemService.GetTaskListAsync();
+            var statuses = await _taskItemService.GetStatusListAsync();
+
+            model.SetAllStatuses(statuses);
+            model.SetAllTasks(tasks);
+            return View(model);
+        }
+
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(TaskEditModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var task = await _taskItemService.GetTaskAsync(model.Id);
+
+                task.Title = model.Title;
+                task.Description = model.Description;
+                task.DueDate = DateTime.SpecifyKind(model.DueDate, DateTimeKind.Utc);
+                task.StatusId = model.StatusId;
+                task.Priority = model.Priority;
+
+
+                await _taskItemService.UpdateTaskAsync(task);
+
+                if (model.DueDate != DateTime.MinValue && model.PrerequisiteIds != null)
+                {
+                    await _taskItemService
+                        .UpdateDependencyAsync(model.Id, model.PrerequisiteIds);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            var tasks = await _taskItemService.GetTaskListAsync();
+            var statuses = await _taskItemService.GetStatusListAsync();
+
+            model.SetAllTasks(tasks);
+            model.SetAllStatuses(statuses);
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _taskItemService.DeleteTaskAsync(id);
+            return RedirectToAction("Index");
+        }
     }
 }

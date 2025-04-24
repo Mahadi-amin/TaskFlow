@@ -9,5 +9,10 @@ namespace TaskFlow.Infrastructure.Repositories
         public TaskDependencyRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task<IList<TaskDependency>> GetDependenciesAsync(Guid taskId)
+        {
+            return await GetAsync(x => x.TaskItemId == taskId, null);
+        }
     }
 }

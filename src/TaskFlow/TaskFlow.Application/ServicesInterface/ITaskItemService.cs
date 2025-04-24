@@ -10,6 +10,11 @@ namespace TaskFlow.Application.ServicesInterface
         Task<IList<Status>> GetStatusListAsync();
         Task CreateNewTaskAsync(TaskItem taskItem);
         Task CreateNewDependencyAsync(Guid taskId, List<Guid> prerequisiteIds);
+        Task<TaskItem> GetTaskAsync(Guid id);
+        Task UpdateTaskAsync(TaskItem task);
+        Task UpdateDependencyAsync(Guid Id, List<Guid> prerequisiteIds);
+        Task DeleteTaskAsync(Guid id);
         Task<int> GetUpcomingDueTaskCountAsync();
+
     }
 }

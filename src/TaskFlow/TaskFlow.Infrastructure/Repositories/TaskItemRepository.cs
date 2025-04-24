@@ -43,6 +43,14 @@ namespace TaskFlow.Infrastructure.Repositories
             return (data, total, totalDisplay);
         }
 
+        public async Task<TaskItem?> GetTaskWithPrerequisites(Guid id)
+        {
+
+            return await _dbSet
+                            .Include(x => x.PrerequisiteLinks)
+                            .Include(x => x.Status)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+        }
         public async Task<int> NearDueDateTaskAsync()
         {
             var nowUtc = DateTime.UtcNow;
