@@ -40,7 +40,7 @@ namespace TaskFlow.Web.Controllers
             {
                 var user = new IdentityUser
                 {
-                    UserName = model.Email,  
+                    UserName = model.Email,
                     Email = model.Email
                 };
 
@@ -58,7 +58,7 @@ namespace TaskFlow.Web.Controllers
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(model.ReturnUrl); 
+                    return LocalRedirect(model.ReturnUrl);
                 }
 
                 foreach (var error in result.Errors)
