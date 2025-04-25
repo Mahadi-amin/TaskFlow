@@ -18,6 +18,7 @@ namespace TaskFlow.Application.Services
             return await _taskUnitOfWork.TaskItemRepository.GetAllAsync();
         }
 
+
         public async Task<IList<Status>> GetStatusListAsync()
         {
             return await _taskUnitOfWork.StatusRepository.GetAllAsync();
@@ -114,6 +115,20 @@ namespace TaskFlow.Application.Services
             return await _taskUnitOfWork.TaskItemRepository.GetTaskCountByStatusAsync(taskStatusNames);
         }
 
+        public async Task<List<TaskItem>> GetAllPendingTaskAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetPendingTaskAsync();
+        }
+
+        public async Task<List<TaskItem>> GetAllInProgressTaskAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetInProgressTaskAsync();
+        }
+
+        public async Task<List<TaskItem>> GetTaskByStatusAsync()
+        {
+            return await _taskUnitOfWork.TaskItemRepository.GetTaskByStatusAsync(); 
+        }
     }
 
 }

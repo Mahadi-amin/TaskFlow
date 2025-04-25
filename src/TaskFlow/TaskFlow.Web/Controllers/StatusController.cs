@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using TaskFlow.Application.ServicesInterface;
 using TaskFlow.Web.Models;
 
 namespace TaskFlow.Web.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class StatusController : Controller
     {
         private readonly ILogger<StatusController> _logger;
@@ -27,7 +29,6 @@ namespace TaskFlow.Web.Controllers
             return View();
         }
 
-
         public JsonResult GetstatusJsonData([FromBody] StatusListModel model)
         {
             var result = _statusService.GetStatus(model.PageIndex, model.PageSize, model.Search,
@@ -49,8 +50,5 @@ namespace TaskFlow.Web.Controllers
 
             return Json(statusJsonData);
         }
-
-
-
     }
 }

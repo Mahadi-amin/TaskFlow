@@ -1,34 +1,41 @@
 ﻿@model LoginModel
 @{
     ViewData["Title"] = "Login";
+    Layout = "_LoginRegisterLayout";
 }
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-sm p-4" style="min-width: 350px;">
-        <h4 class="card-title text-center mb-4">@ViewData["Title"]</h4>
+    <div class="card shadow-lg p-4" style="min-width: 350px; max-width: 400px; border-radius: 10px;">
+        <h4 class="card-title text-center mb-4 text-primary">@ViewData["Title"]</h4>
+
         <form asp-action="Login" method="post">
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" placeholder="Enter your email" />
+            <!-- Email Field -->
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="font-weight-bold"></label>
+                <input asp-for="Email" class="form-control form-control-lg" placeholder="Enter your email" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+            <!-- Password Field -->
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="font-weight-bold"></label>
+                <input asp-for="Password" type="password" class="form-control form-control-lg" placeholder="Enter your password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
 
-            <div class="form-group form-check">
+            <!-- Remember Me Checkbox -->
+            <div class="form-group form-check mb-4">
                 <input asp-for="RememberMe" class="form-check-input" />
                 <label class="form-check-label" asp-for="RememberMe">Remember me</label>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Login</button>
         </form>
 
-        <div class="text-center mt-3">
-            <a href="@Url.Action("Register", "Account")">Register a new account</a>
+        <!-- Register Link -->
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Register", "Account")" class="text-secondary">Don't have an account? Register here.</a>
         </div>
     </div>
 </div>

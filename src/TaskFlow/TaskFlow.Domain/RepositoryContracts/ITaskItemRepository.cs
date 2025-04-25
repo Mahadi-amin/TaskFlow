@@ -9,5 +9,8 @@ namespace TaskFlow.Domain.RepositoryContracts
         Task<TaskItem> GetTaskWithPrerequisites(Guid id);
         Task<int> NearDueDateTaskAsync();
         Task<int> GetTaskCountByStatusAsync(string statusName);
+        Task<List<TaskItem>> GetPendingTaskAsync();
+        Task<List<TaskItem>> GetInProgressTaskAsync();
+        Task<List<TaskItem>> GetTaskByStatusAsync();
     }
 }

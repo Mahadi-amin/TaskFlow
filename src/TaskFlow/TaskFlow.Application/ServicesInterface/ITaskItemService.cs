@@ -16,6 +16,9 @@ namespace TaskFlow.Application.ServicesInterface
         Task DeleteTaskAsync(Guid id);
         Task<int> GetUpcomingDueTaskCountAsync();
         Task<int> GetAllTaskCountByStatusAsync(string taskStatusNames);
+        Task<List<TaskItem>> GetAllPendingTaskAsync();
+        Task<List<TaskItem>> GetAllInProgressTaskAsync();
+        Task<List<TaskItem>> GetTaskByStatusAsync();
 
     }
 }

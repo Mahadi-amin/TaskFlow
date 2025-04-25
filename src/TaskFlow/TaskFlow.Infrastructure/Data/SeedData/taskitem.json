@@ -22,5 +22,61 @@
     "DueDate": "2025-04-20T00:00:00",
     "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
     "Priority": 3
+  },
+  {
+    "Id": "b3d7c8f1-70d1-4e7e-94b8-848b63799c9b",
+    "Title": "Design UI",
+    "Description": "Create the user interface for the new application.",
+    "DueDate": "2025-04-25T00:00:00",
+    "StatusId": "6d3c1553-3d15-4991-a5c5-7235a60fddfb",
+    "Priority": 1
+  },
+  {
+    "Id": "88c9d0e1-abb3-4628-b12d-3b3a5a59da6e",
+    "Title": "Client Meeting",
+    "Description": "Discuss project requirements with the client.",
+    "DueDate": "2025-04-12T00:00:00",
+    "StatusId": "d0eb5691-bb28-452b-902b-91452219dcdd",
+    "Priority": 2
+  },
+  {
+    "Id": "db283e33-c5b0-4a73-b7b3-2201b5bff876",
+    "Title": "Test API",
+    "Description": "Test the API endpoints for functionality and security.",
+    "DueDate": "2025-04-22T00:00:00",
+    "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
+    "Priority": 3
+  },
+  {
+    "Id": "74f688a9-682b-45d8-9142-d08a0eaf0130",
+    "Title": "Update Documentation",
+    "Description": "Update project documentation with new features and changes.",
+    "DueDate": "2025-04-30T00:00:00",
+    "StatusId": "6d3c1553-3d15-4991-a5c5-7235a60fddfb",
+    "Priority": 1
+  },
+  {
+    "Id": "dd6248d4-1b3f-4ae3-bb95-35f689d5cd47",
+    "Title": "Refactor Code",
+    "Description": "Refactor the code to improve readability and performance.",
+    "DueDate": "2025-04-18T00:00:00",
+    "StatusId": "d0eb5691-bb28-452b-902b-91452219dcdd",
+    "Priority": 2
+  },
+  {
+    "Id": "06398ad0-88d7-4675-9b8e-428fa578a22f",
+    "Title": "Deploy to Staging",
+    "Description": "Deploy the application to the staging environment for testing.",
+    "DueDate": "2025-04-14T00:00:00",
+    "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
+    "Priority": 3
+  },
+  {
+    "Id": "f22c1a2f-4eec-476f-899b-4c77a07de394",
+    "Title": "Bug Fixing",
+    "Description": "Fix critical bugs reported by the QA team.",
+    "DueDate": "2025-04-10T00:00:00",
+    "StatusId": "53f3ad20-2459-4784-a5c2-22ae73a99b56",
+    "Priority": 3
   }
 ]

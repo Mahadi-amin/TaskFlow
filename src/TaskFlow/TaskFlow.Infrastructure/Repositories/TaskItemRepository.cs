@@ -67,5 +67,28 @@ namespace TaskFlow.Infrastructure.Repositories
             return _dbSet.CountAsync(t => t.Status.StatusName == statusName);
         }
 
+        public async Task<List<TaskItem>> GetTaskByStatusAsync()
+        {
+            return await _dbSet.Include(t => t.Status).ToListAsync();
+        }
+
+        public Task<List<TaskItem>> GetPendingTaskAsync()
+        {
+            return _dbSet
+                .Include(t => t.Status)
+                .Where(t => t.Status.StatusName == "Pending")
+                .ToListAsync();
+        }
+
+        public Task<List<TaskItem>> GetInProgressTaskAsync()
+        {
+            return _dbSet
+                .Include(t => t.Status)
+                .Where(t => t.Status.StatusName == "In-Progress")
+                .ToListAsync();
+        }
+
+
+        
     }
 }

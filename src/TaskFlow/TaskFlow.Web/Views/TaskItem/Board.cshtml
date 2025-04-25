@@ -1,0 +1,85 @@
+﻿@model TaskBoardViewModel
+@{
+    ViewData["Title"] = "Board";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Task Board</h2>
+
+    <div class="row g-3">
+        <!-- Pending Column -->
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white text-center fw-bold">Pending</div>
+                <div class="card-body p-2">
+                    @foreach (var task in Model.PendingTasks)
+                    {
+                        <div class="card mb-2 shadow-sm">
+                            <div class="card-body p-2">
+                                <h6 class="card-title mb-1 text-primary">@task.Title</h6>
+                                <p class="card-text mb-1 small">@task.Description ?? "No description."</p>
+                                <span class="badge bg-secondary me-1">Due: @task.DueDate.ToString("dd MMM")</span>
+                                <span class="badge @(GetPriorityClass(task.Priority))">@task.Priority</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- In Progress Column -->
+        <div class="col-md-4">
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark text-center fw-bold">In Progress</div>
+                <div class="card-body p-2">
+                    @foreach (var task in Model.InProgressTasks)
+                    {
+                        <div class="card mb-2 shadow-sm">
+                            <div class="card-body p-2">
+                                <h6 class="card-title mb-1 text-warning">@task.Title</h6>
+                                <p class="card-text mb-1 small">@task.Description ?? "No description."</p>
+                                <span class="badge bg-secondary me-1">Due: @task.DueDate.ToString("dd MMM")</span>
+                                <span class="badge @(GetPriorityClass(task.Priority))">@task.Priority</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Column -->
+        <div class="col-md-4">
+            <div class="card border-success">
+                <div class="card-header bg-success text-white text-center fw-bold">Completed</div>
+                <div class="card-body p-2">
+                    @foreach (var task in Model.CompletedTasks)
+                    {
+                        <div class="card mb-2 shadow-sm">
+                            <div class="card-body p-2">
+                                <h6 class="card-title mb-1 text-success">@task.Title</h6>
+                                <p class="card-text mb-1 small">@task.Description ?? "No description."</p>
+                                <span class="badge bg-secondary me-1">Due: @task.DueDate.ToString("dd MMM")</span>
+                                <span class="badge @(GetPriorityClass(task.Priority))">@task.Priority</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetPriorityClass(Priority priority)
+    {
+        return priority switch
+        {
+            Priority.Low => "bg-success",
+            Priority.Medium => "bg-warning text-dark",
+            Priority.High => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
+
+

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<TaskItem>
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -16,14 +17,12 @@
     </div><!-- /.container-fluid -->
 </div>
 
-
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
                         <h3>@ViewBag.pendingTaskCount</h3>
@@ -32,12 +31,10 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a asp-area="Admin" asp-controller="Purchase" asp-action="CurrentMonthPurchases" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a  asp-controller="" asp-action="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>@ViewBag.InProgressTaskCount</h3>
@@ -46,12 +43,10 @@
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a asp-area="Admin" asp-controller="Sales" asp-action="CurrentMonthSales" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a  asp-controller="" asp-action="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>@ViewBag.CompletedTaskCount</h3>
@@ -60,12 +55,10 @@
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
                     </div>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="ShowNearExpiryProducts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a  asp-controller="" asp-action="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-3 col-6">
-                <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
                         <h3>@ViewBag.UpcomingTasksCount</h3>
@@ -74,12 +67,143 @@
                     <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>
-                    <a asp-area="Admin" asp-controller="Product" asp-action="ShowLowStockProducts" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a  asp-controller="" asp-action="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
             </div>
-            <!-- ./col -->
         </div>
-        <!-- /.row -->
     </div>
 </section>
-<!-- /.content -->
+
+<!-- Task Board -->
+<div class="container mt-5">
+    <div class="card">
+        <div class="card shadow border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd);">
+            <div class="card-header text-white py-2" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                <h2 class="text-center mb-4 mt-3">Task Board</h2>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @{
+                    var pendingTasks = Model.Where(t => t.Status.StatusName == "Pending").ToList();
+                    var inProgressTasks = Model.Where(t => t.Status.StatusName == "In-Progress").ToList();
+                    var completedTasks = Model.Where(t => t.Status.StatusName == "Completed").ToList();
+                }
+
+                <!-- Pending Column -->
+                <div class="col-md-4" style="border-right: 2px solid #ddd;">
+                    <h5 class="text-center text-info">Pending</h5>
+                    @foreach (var task in pendingTasks)
+                    {
+                        <div class="col-12 mb-4">
+                            <div class="card shadow border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd);">
+                                <div class="card-header text-white py-2" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                                    <h5 class="mb-0 text-truncate">@task.Title</h5>
+                                </div>
+                                <div class="card-body py-3 small">
+                                    <p>
+                                        <strong>Status:</strong>
+                                        <span class="badge rounded-pill bg-gradient bg-info text-dark fs-6">Pending</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Priority:</strong>
+                                        <span class="badge rounded-pill text-white fs-6 @(task.Priority switch {
+                                            Priority.Low => "bg-success",
+                                            Priority.Medium => "bg-warning text-dark",
+                                            Priority.High => "bg-danger",
+                                            _ => "bg-secondary"
+                                        })">@task.Priority</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Due Date:</strong>
+                                        <span class="badge bg-light text-dark border border-secondary fs-6">
+                                            @task.DueDate.ToString("dd MMM yyyy")
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- In-Progress Column -->
+                <div class="col-md-4" style="border-right: 2px solid #ddd;">
+                    <h5 class="text-center text-warning">In-Progress</h5>
+                    @foreach (var task in inProgressTasks)
+                    {
+                        <div class="col-12 mb-4">
+                            <div class="card shadow border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd);">
+                                <div class="card-header text-white py-2" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                                    <h5 class="mb-0 text-truncate">@task.Title</h5>
+                                </div>
+                                <div class="card-body py-3 small">
+                                    <p>
+                                        <strong>Status:</strong>
+                                        <span class="badge rounded-pill bg-gradient bg-info text-dark fs-6">In-Progress</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Priority:</strong>
+                                        <span class="badge rounded-pill text-white fs-6 @(task.Priority switch {
+                                            Priority.Low => "bg-success",
+                                            Priority.Medium => "bg-warning text-dark",
+                                            Priority.High => "bg-danger",
+                                            _ => "bg-secondary"
+                                        })">@task.Priority</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Due Date:</strong>
+                                        <span class="badge bg-light text-dark border border-secondary fs-6">
+                                            @task.DueDate.ToString("dd MMM yyyy")
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Completed Column -->
+                <div class="col-md-4">
+                    <h5 class="text-center text-success">Completed</h5>
+                    @foreach (var task in completedTasks)
+                    {
+                        <div class="col-12 mb-4">
+                            <div class="card shadow border-0" style="background: linear-gradient(135deg, #f8f9fa, #e3f2fd);">
+                                <div class="card-header text-white py-2" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+                                    <h5 class="mb-0 text-truncate">@task.Title</h5>
+                                </div>
+                                <div class="card-body py-3 small">
+                                    <p>
+                                        <strong>Status:</strong>
+                                        <span class="badge rounded-pill bg-gradient bg-info text-dark fs-6">Completed</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Priority:</strong>
+                                        <span class="badge rounded-pill text-white fs-6 @(task.Priority switch {
+                                            Priority.Low => "bg-success",
+                                            Priority.Medium => "bg-warning text-dark",
+                                            Priority.High => "bg-danger",
+                                            _ => "bg-secondary"
+                                        })">@task.Priority</span>
+                                    </p>
+
+                                    <p>
+                                        <strong>Due Date:</strong>
+                                        <span class="badge bg-light text-dark border border-secondary fs-6">
+                                            @task.DueDate.ToString("dd MMM yyyy")
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

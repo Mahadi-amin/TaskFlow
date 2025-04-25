@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using TaskFlow.Application.ServicesInterface;
 using TaskFlow.Domain.Entities;
@@ -6,6 +7,7 @@ using TaskFlow.Web.Models;
 
 namespace TaskFlow.Web.Controllers
 {
+    [Authorize(Roles ="Admin, User")]
     public class TaskItemController : Controller
     {
         private readonly ITaskItemService _taskItemService;
@@ -119,7 +121,6 @@ namespace TaskFlow.Web.Controllers
             return View(model);
         }
 
-
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TaskEditModel model)
         {
@@ -180,5 +181,12 @@ namespace TaskFlow.Web.Controllers
             model.SetAllTasks(tasks);
             return View(model);
         }
+
+        public async Task<IActionResult> PendingTasks()
+        {
+            var tasks = await _taskItemService.GetTaskByStatusAsync();
+            return View(tasks);
+        }
+
     }
 }
